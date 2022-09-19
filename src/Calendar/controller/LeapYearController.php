@@ -2,16 +2,14 @@
 
 namespace Calendar\Controller;
 
-require_once __DIR__ . '/../vendor/autoload.php';
-
-use LeapYear;
-use Symfony\Component\HttpFoundation\Request;
+use Calendar\Model\LeapYear;
 use Symfony\Component\HttpFoundation\Response;
-
+use Symfony\Component\HttpFoundation\Request;
 class LeapYearController
 {
-    public function index(int $year)
+    public function index( Request $request, int $year)
     {
+        dd($year);
         if (LeapYear::is_leap_year($year)) {
             return new Response('Yes it is');
         }
