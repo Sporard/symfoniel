@@ -50,3 +50,14 @@
 
 # Embedded web-server pid file
 /.web-server-pid
+
+# PHPunit 
+.phpunit.result.cache
+.phpunit.cache
+
+# PHPUnit
+/app/phpunit.xml
+/phpunit.xml
+
+# Build data
+/build/
