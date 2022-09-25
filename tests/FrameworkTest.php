@@ -16,7 +16,6 @@ class FrameworkTest extends TestCase{
 
     public function testNotFoundHandling() {
         $framework = $this->getFrameworkForException(new ResourceNotFoundException());
-
         $response = $framework->handle(new Request());
         $this->assertEquals(404, $response->getStatusCode());
 

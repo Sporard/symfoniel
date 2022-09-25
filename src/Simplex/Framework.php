@@ -30,9 +30,9 @@ class Framework
             $arguments = $this->argumentResolver->getArguments($request, $controller);
             return call_user_func($controller, ...$arguments);
         } catch (ResourceNotFoundException $e) {
-            $response = new Response('Not Found', 404);
+            return new Response('Not Found', 404);
         } catch (Exception $e) {
-            $response = new Response($e->getMessage(), 500);
+            return new Response($e->getMessage(), 500);
         }
     }
 }
