@@ -2,20 +2,24 @@
 
 namespace Simplex;
 
-
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Exception;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
+use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 class Framework
 {
-    public function __construct(private UrlMatcherInterface $urlMatcher,
-     private ControllerResolverInterface $controllerResolver, 
-     private ArgumentResolverInterface $argumentResolver)
+    public function __construct(
+        private UrlMatcherInterface $urlMatcher,
+        private ControllerResolverInterface $controllerResolver,
+        private ArgumentResolverInterface $argumentResolver,
+        private EventDispatcher $eventDispatcher
+    )
     {
     }
 /**
@@ -28,11 +32,13 @@ class Framework
             $request->attributes->add($this->urlMatcher->match($request->getPathInfo()));
             $controller = $this->controllerResolver->getController($request);
             $arguments = $this->argumentResolver->getArguments($request, $controller);
-            return call_user_func($controller, ...$arguments);
+            $response = call_user_func($controller, ...$arguments);
         } catch (ResourceNotFoundException $e) {
-            return new Response('Not Found', 404);
+            $response =  new Response('Not Found', 404);
         } catch (Exception $e) {
-            return new Response($e->getMessage(), 500);
+            $response = new Response($e->getMessage(), 500);
         }
+        $this->eventDispatcher->dispatch(new ResponseEvent($response, $request), 'response');
+        return $response;
     }
 }
