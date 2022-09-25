@@ -9,7 +9,6 @@ class LeapYearController
 {
     public function index( Request $request, int $year)
     {
-        dd($year);
         if (LeapYear::is_leap_year($year)) {
             return new Response('Yes it is');
         }

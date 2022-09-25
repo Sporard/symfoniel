@@ -28,7 +28,7 @@ class Framework
             $request->attributes->add($this->urlMatcher->match($request->getPathInfo()));
             $controller = $this->controllerResolver->getController($request);
             $arguments = $this->argumentResolver->getArguments($request, $controller);
-            return call_user_func($controller, $arguments);
+            return call_user_func($controller, ...$arguments);
         } catch (ResourceNotFoundException $e) {
             $response = new Response('Not Found', 404);
         } catch (Exception $e) {
