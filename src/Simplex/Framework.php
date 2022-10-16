@@ -9,22 +9,22 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentResolverInterface;
 use Symfony\Component\HttpKernel\Controller\ControllerResolverInterface;
-use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\Routing\Matcher\UrlMatcherInterface;
 
 class Framework
 {
     public function __construct(
-        private UrlMatcherInterface $urlMatcher,
+        private UrlMatcherInterface         $urlMatcher,
         private ControllerResolverInterface $controllerResolver,
-        private ArgumentResolverInterface $argumentResolver,
-        private EventDispatcher $eventDispatcher
+        private ArgumentResolverInterface   $argumentResolver,
+        private EventDispatcher             $eventDispatcher
     )
     {
     }
-/**
- *
- */
+
+    /**
+     *
+     */
     public function handle(Request $request)
     {
         $this->urlMatcher->getContext()->fromRequest($request);
@@ -34,7 +34,7 @@ class Framework
             $arguments = $this->argumentResolver->getArguments($request, $controller);
             $response = call_user_func($controller, ...$arguments);
         } catch (ResourceNotFoundException $e) {
-            $response =  new Response('Not Found', 404);
+            $response = new Response('Not Found', 404);
         } catch (Exception $e) {
             $response = new Response($e->getMessage(), 500);
         }

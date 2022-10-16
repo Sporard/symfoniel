@@ -10,6 +10,7 @@ class GoogleListener implements EventSubscriberInterface
     {
         return ['response' => 'onResponse'];
     }
+
     public function onResponse(ResponseEvent $event)
     {
         $response = $event->getResponse();
@@ -21,6 +22,6 @@ class GoogleListener implements EventSubscriberInterface
             return;
         }
 
-        $response->setContent($response->getContent().'GA CODE');
+        $response->setContent($response->getContent() . 'GA CODE');
     }
 }
