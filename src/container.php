@@ -13,7 +13,7 @@ use Symfony\Component\Routing;
 $containerBuilder = new ContainerBuilder();
 $containerBuilder->register('context', Routing\RequestContext::class);
 $containerBuilder->register('matcher', Routing\Matcher\UrlMatcher::class)
-    ->setArguments(['%routes%', new Reference('context')]);
+    ->setArguments([new Routing\RouteCollection(), new Reference('context')]);
 $containerBuilder->register('request_stack', HttpFoundation\RequestStack::class);
 $containerBuilder->register('controller_resolver', HttpKernel\Controller\ControllerResolver::class);
 $containerBuilder->register('argument_resolver', HttpKernel\Controller\ArgumentResolver::class);
