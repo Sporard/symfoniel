@@ -1,5 +1,5 @@
 <?php
-namespace Simplex;
+namespace Simplex\Events;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Contracts\EventDispatcher\Event;

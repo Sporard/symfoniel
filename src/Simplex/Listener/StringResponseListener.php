@@ -1,6 +1,6 @@
 <?php
 
-namespace Simplex;
+namespace Simplex\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Response;

@@ -3,7 +3,7 @@
 namespace Calendar\Controller;
 
 use Calendar\Model\LeapYear;
-use Simplex\BaseController;
+use Simplex\Controller\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 
 class LeapYearController extends BaseController

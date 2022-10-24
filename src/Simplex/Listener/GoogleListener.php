@@ -1,9 +1,10 @@
 <?php
 
-namespace Simplex;
+namespace Simplex\Listener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+use Simplex\Events\ResponseEvent
 class GoogleListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()
