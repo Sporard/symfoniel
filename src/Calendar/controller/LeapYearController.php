@@ -3,17 +3,19 @@
 namespace Calendar\Controller;
 
 use Calendar\Model\LeapYear;
+use Simplex\BaseController;
 use Symfony\Component\HttpFoundation\Request;
 
-class LeapYearController
+class LeapYearController extends BaseController
 {
     public function index(Request $request, int $year)
     {
         if (LeapYear::is_leap_year($year)) {
-            return 'Yes it is';
+            return $this->render('leap_year.html.twig', ['status' => true]);
         }
 
-        return 'No it\'s not';
+        return $this->render('leap_year.html.twig', ['status' => false]);
+
     }
 
 }
