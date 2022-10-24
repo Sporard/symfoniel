@@ -12,5 +12,5 @@ $container->register('listener.string_response', StringResponseListener::class);
 $container->setParameter('templatesDir', __DIR__ . '/../src/templates');
 $container->getDefinition('dispatcher')
     ->addMethodCall('addSubscriber', [new Reference('listener.string_response')]);
-$container->getDefinition('matcher')->replaceArgument(0, include __DIR__ . '/../src/app.php');
+$container->getDefinition('matcher')->replaceArgument(0, include __DIR__ . '/../src/routes.php');
 $container->get('framework')->handle($request)->send();
